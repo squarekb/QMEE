@@ -1,4 +1,4 @@
-# myrepo
+# QMEE
 # this is a line from RStudio
 x <- rnorm(1000)
 hist(x)
