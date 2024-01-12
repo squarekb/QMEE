@@ -1,10 +1,3 @@
-# QMEE
-# this is a line from RStudio
-x <- rnorm(1000)
-hist(x)
-
-y <-rbinom(25,100,0.99)
-hist(y)
-
-#back to github
-#this is a line from github
+I created a simulated data set for use in this course. This data set set is meant to mimic the data I will collect in the field this summer.
+The data set describes the presence (1) or absence (0) of Blanding's turtles at 30 simulated sites using eDNA as a field survey technique. At each site, water quality and environmental covariates (pH, salinity, temperature, etc.) are included.
+The biological question of interest is whether or not certain environmental factors have a significant influence the availability of Blanding's Turtle eDNA in the environment. It is expected that certain environmental factors contribute to eDNA degredation, and therefore detecting an absence of Blanding's Turtles at a given site.
