@@ -1,6 +1,11 @@
 library(unmarked)
+library(tidyverse)
+library(dplyr)
 
-data <- read.csv("qmee_data.csv")
+#importing data
+data <- read_csv("qmee_data.csv")
+
+#creating a new variable
 data$tempdiff <- data$water_temp - data$air_temp
 
 #Presence/absence matrix
