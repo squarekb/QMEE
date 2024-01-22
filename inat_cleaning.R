@@ -16,4 +16,6 @@ order <- clean_inat %>%
   summarize(count = n())%>%
   arrange(desc(count))
     
-
+##saveRDS function to save a clean version of my data to an rds file and reading it back into R
+saveRDS(clean_inat, "inat.rds")
+test <- readRDS("inat.rds")
