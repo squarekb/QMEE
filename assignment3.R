@@ -2,26 +2,16 @@ library(tidyverse)
 library(dplyr)
 library(ggplot2)
 
-#importing data
-data <- read_csv("qmee_data.csv")
+#importing data and adding occupancy as a factor, creating a longer dataset with gather()
+data <- (read_csv("qmee_data.csv", col_types=cols())%>%
+           mutate(occupancy = as.factor(edna_occ))%>%
+           gather('wetland_size', 'water_temp','air_temp','pH','salinity','rdo_conc', 'turbidity', 'conductivity', 'canopy_cover', 'tds', 'julian_day_eDNA', key = "env", value = "score")%>%
+           subset(select = -c(edna_occ,pct_pos_qpcr))
+)
 
-#changing edna_occ to a factor of occupancy
-occ_vec <- c(data$edna_occ)
-occupancy <- factor(occ_vec)
+#boxplots of environmental variables by occupancy, scales are adjusted by the bounds of each environmental variable using "free"
+figure <- ggplot(data, aes(x=occupancy, y=score)) +
+  geom_boxplot(aes(fill=occupancy)) +
+  facet_wrap(~env, scales = "free")
 
-#mutating table to add occupancy as a factor
-clean <- data%>%
-  mutate(edna_occ, occupancy)
-
-#boxplot of pH for occupancy
-ggplot(clean, aes(x=occupancy, y=pH)) +
-  geom_boxplot(aes(fill=occupancy))
-
-##tryng to execute a for loop to create a boxplot for each column in "clean" versus factor_occ
-for (i in ncol(clean)){
-  print(ggplot(clean, aes(x = occupancy, y = clean[, i])) +
-    geom_boxplot())
-}
-
-#facet_grid()
-
+print(figure)
