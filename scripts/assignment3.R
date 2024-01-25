@@ -10,8 +10,8 @@ data <- (read_csv("qmee_data.csv", col_types=cols())
 )
 
 #boxplots of environmental variables by occupancy, scales are adjusted by the bounds of each environmental variable using "free"
-figure <- ggplot(data, aes(x=occupancy, y=score)) 
-+ geom_boxplot(aes(fill=occupancy))
-+ facet_wrap(~env, scales = "free")
+figure <- ggplot(data, aes(x=occupancy, y=score)) + 
+  geom_boxplot(aes(fill=occupancy))+
+  facet_wrap(~env, scales = "free")
 
 print(figure)
