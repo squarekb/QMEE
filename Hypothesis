@@ -1,0 +1,5 @@
+I hypothesize that in samples that test positive and negative occupancy, environmental covariates will be distributed differently.
+
+To test this statistically, I think the best approach is to compare the distributions of my environmental covariates between two groups, samples that test positive and samples that test negative for occupancy. 
+
+I believe a Mann-Whitney U test could be appropriate to test this hypothesis.
