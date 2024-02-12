@@ -12,11 +12,12 @@ data <- (read_csv("qmee_data.csv", col_types=cols())
 )
 
 #boxplots of environmental variables by occupancy, scales are adjusted by the bounds of each environmental variable using "free"
-figure <- ggplot(data, aes(x=occupancy, y=score)) + 
-  geom_boxplot(aes(fill=occupancy))+
+figure <- ggplot(data, aes(x=score, y=occupancy)) + 
+  geom_boxplot(aes(fill=occupancy), show.legend = FALSE)+
   facet_wrap(~env, scales = "free")
 
 ## JD: You should try to suppress the legend, since it's redundant.
+## BS: legend removed with show.legend = FALSE
 
 ## Grade: 2
 

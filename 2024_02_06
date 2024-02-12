@@ -1,0 +1,40 @@
+Assumptions
+
+Conditional residual distribution, distribution of residuals
+we assume errors or residuals are normally distributed with constant variance
+
+Machinery
+
+Least squares fit, min squared difference between obs and prediction
+
+y = a + bx
+
+Non-linear responses to an input variable:
+
+y = a + bx + cx^2
+
+For complex smooth curves... use spline (splines::ns()) or mgcv package
+
+Interactions
+
+two or more predictors, one repsonse
+interpreting the main effects is difficult and is done using the principle of marginality
+
+ Y=a+b1X1+b2X2+b12X1X2
+ 
+Interaction term Bxt is the difference in the response between groups
+M=a+BxX+Btt+BxtXt
+
+Deciding whether to transform
+You can use functions to determine which power to trasnform your data with... see MASS::boxcox() or car::powerTransform()
+
+Collinearity
+how do different predictor variables in my data influence the response? don't just throw away correlated predictors, combine them?
+Make a priori choices about what you are looking at... look at the literature
+
+Sum to zero contrasts
+To compare between factors use sum-to-zero contrasts. In this example, light and time are turned into time1, time2, and light1.
+lmint_c <- update(lmint, contrasts = list(time = contr.sum, light = contr.sum))
+print(summary(lmint_c))
+
+
