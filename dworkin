@@ -1,0 +1,6 @@
+Dr. Dworkin assigned readings
+
+What scale are my data?
+Ratio - Most environmental covariates (size, pH, salinity, do, turbidity, conductivity, tds), cq and dna copy number
+Interval - temperatures, canopy cover(%), julian day
+Nominal - Presence/Absence (0, 1)
