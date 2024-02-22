@@ -6,4 +6,6 @@ I believe a Mann-Whitney U test could be appropriate to test this hypothesis.
 
 **BMB**: this is an odd **scientific** hypothesis. It does sometimes make sense to invert scientific hypotheses around for statistical purposes, but this seems like it might be scientifically backward - wouldn't it make more sense to ask how environmental covariates predict occupancy (which you can do with logistic regression)?. Another problem with classic nonparametric tests is that they don't give you interpretable effect sizes and confidence intervals ...)
 
+**JD** I could also ask what it would mean for them to _not_ be different. If that's really your question (maybe they're _exactly_ the same? Maybe their difference is smaller than some threshold) a standard P-value based test is _not_ the way to test that, for reasons I've tried to explain.
+
 mark: 1.9 (both parts of this assignment are slightly lacking)
