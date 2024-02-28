@@ -1,0 +1,59 @@
+---
+title: "Meaningful measurement, interpretability and comparability"
+output: html_document
+date: "2024-02-18"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Measurement
+
+a. Theoretical context: Environmental parameters affect the amount of eDNA copies available. Empirical relational structure: the parameters that may affect eDNA degradation and availability are pH, temperature, day, wetland size, total dissolved solids, turbidity, conductivity, and salinity. Numerical relational structure: most variables are on a continuous scale, pH (log ratio scale), temperature (C, ordinal or K, ratio), day (ordinal), wetland size (km^2, ratio), total dissolved solids (ppt, ratio), turbidity (NTU, ratio), conductivity (ÂµS/cm, ratio), and salinity (PSU, ratio). Meaningful inferences: eDNA copy number is influenced by multiple factors... most importantly pH, day, and turbidity.
+
+b. Inferences of the effect of these variables on eDNA copies can be made quite easily since they are mostly on ratio scales. We may find that as the pH of water decreases, eDNA copies also decrease. In reality, we might infer that acidic water has an effect on DNA availability.
+
+2. Effect sizes and meaningful magnitudes
+
+a. My response variable is DNA copy number, and I am not measuring my response variable across species and I do not have the goal of comparing the information to other studies. Instead of scaling the response variable, similar studies transform DNA copy number using a logarithmic scale. The historical precedent makes sense for my study, eDNA can be found in very small amounts and this transformation is necessary for linear modeling.
+
+b. My response variable is typically standardized in the literature. The logarithmically transformed DNA copy number represents an intuitive unit of measurement that is the standard across eDNA studies. 
+
+c. The benefit of using differences in log (eDNA copy number) as the effect size is that this is the standard across studies using eDNA sampling techniques. Second, DNA copy number is a unit of measurement that is easily compared across studies. Another researcher looking to compare their eDNA assay to mine easily could deduce that their protocol for Blanding's turtle eDNA processing produces a greater or lesser yield than mine. The negatives that I can foresee with this lack of standardization is that a few key details are left out when using log(copy number) as a unit. And while these details may be mentioned in the methods of a paper, the sample volume, the variation in assay performance and other important contextual information may be left out. As a result, other researchers will potentially have to make conversions to copy number/sample volume or to standardize copy number by variations in assay performance to get meaningful values to compare their results to.
+
+d. The response variable in eDNA studies is log(DNA copy number). Copy number is derived from the Cq value which represents the qPCR cycle at which fluorescence exceeded the detection threshold. Based on the standard curve created in qPCR analysis, an estimation of the copy number/sample volume can be determined. Small differences in copy number may actually constitute an important biologically relevant effect. Differences in the order of 10 times more copies per mL may constitute a very important difference in my study. This also validates the use of a log-scale for transformation. A tenfold increase in DNA copy number translates to a Cq value of 3.32 cycles (2^n = 10). Smaller but relevant differences would correspond to 1-2 qPCR cycles, and differences below around 1 cycle would be considered the "grey area". Differences of little practical/meaningful biological relevance would be between 0 and ~0.75 cycles. To put this into context using a predicting factor, filter pore size (0.8, 1.2, and 3.0um), a filter with a pore size of 0.8um produced an average Cq value of 34.6, 1.2 and average of 35.2, and 3.0 an average of 33.0, these would all constitute small but relevant differences in DNA copies captured by each filter pore size. This data can be visualized below.
+
+```{r}
+library(tidyverse)
+library(emmeans)
+
+#reading in poresize experiement dataset
+data <- (read_csv("data/poresize_exp.csv", col_types = cols())%>%
+           mutate(poresize = as.factor(pore))%>%
+           subset(select = -c(pore))
+         )
+
+#linear model
+lm2 <- lm(logquantity~poresize, data=data, contrasts = list(poresize = contr.sum))
+
+#creating an emmeans object
+e2 <- emmeans(lm2, spec = ~ poresize)
+
+#plotting estimated marginal means of log edna quantity against pore size factors
+plot(e2, xlab= "Mean Log eDNA Quantity", ylab= "Filter Pore Size", )
+```
+
+
+e. 
+
+1: The trait has a clear yet very small, biologically irrelevant positive effect.
+2: The trait has a very unclear effect, and the direction of the effect is unclear, the confidence interval contains magnitudes of effect on both sides of zero.
+3: The trait has an unclear, biologically relevant positive effect.
+4: The trait has a large positive effect but it's magnitude is unclear. This effect is most likely biologically relevant.
+5: The trait has a small positive effect but it's magnitude is unclear. Its effect may or may not be biologically relevant.
+6: The trait has a very small positive effect that likely has little biological relevance.
+7: The trait has a small effect, but the directionality of the effect is unclear, the confidence interval contains magnitudes of effect on both sides of zero.
+
+          
+

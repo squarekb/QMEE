@@ -1,0 +1,28 @@
+Generalized linear models
+
+MMV question - important part of the question is why that person was tested, the information that is given relies on the assumption that your friend is a random member of the population
+
+in glm(), default family is gaussian, if you're going to use glm() you should specify what family you are using
+
+family has to do with the response variable, binomial(proportions, including bernoulli (0/1)), poisson (indep counts, no set maximum)
+
+intergers only into these families
+
+Link functions - from data scale (counts/proportions) to effect or link or linear predictor scale
+inverse link function goes from effect scale to data scale
+each fmaily has a default canonical link
+
+Machinery - applying an inverse link function to the linear predictor, instead of log(y)~x, we analyze y~Poisson(exp(x))
+good because y could be zero and log(0) is -inf
+
+diagnostics - harder than linear models
+
+overdispersion - poisson and binomial are very strong assumptions, when these are violated, the variance around the prediction is not equal to the mean, almost always bigger, if this is ignored your results will be overconfident
+(residual deviance/residual df) = 1 good, 1.2 worrisome, 3 v. worrisome
+quasi-likelihood models (family = quasipoisson) fit, then adjust CI and  values
+
+parameter interpretation
+if changes are small in log-link, one unit change per unit in input, if beta is big just exponentiate
+
+logit link
+the effect of a one unit change is to multiply the odds by the odds ratio, ex= if beta = 0.02, then the probability is multiplied by 0.02 or e^0.02 I'm not sure

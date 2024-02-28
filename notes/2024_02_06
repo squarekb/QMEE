@@ -36,5 +36,3 @@ Sum to zero contrasts
 To compare between factors use sum-to-zero contrasts. In this example, light and time are turned into time1, time2, and light1.
 lmint_c <- update(lmint, contrasts = list(time = contr.sum, light = contr.sum))
 print(summary(lmint_c))
-
-
