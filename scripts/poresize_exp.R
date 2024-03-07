@@ -14,6 +14,7 @@ data <- (read_csv("data/poresize_exp.csv", col_types = cols())%>%
 
 ## visualization
 ggplot(data, aes(poresize, copies))+
+  geom_smooth(method = "lm")+
   geom_boxplot()+
   geom_point()
 

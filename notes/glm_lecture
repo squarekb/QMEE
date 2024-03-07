@@ -26,3 +26,39 @@ if changes are small in log-link, one unit change per unit in input, if beta is 
 
 logit link
 the effect of a one unit change is to multiply the odds by the odds ratio, ex= if beta = 0.02, then the probability is multiplied by 0.02 or e^0.02 I'm not sure
+
+Inference - Wald Z tests
+drop1(model, test="Chisq"")
+
+Binomial model
+Bernoulli(0/1) only need one piece of information in one column 0,1
+if using proportions (k/N), also specify weights=N ex: (glm(p~..., data, weight=rep(N, row(data))))
+
+offsets
+what if we want to model densities instead of counts?
+using a log-link, if we want u = A*u0, equivalent to adding log(A) to the linear predictor (exp(log(μ0)+log(A))=μ0⋅A, use ... + offset(log(A))
+useful for counts over time, if you want them to be proportional to an area
+
+add ons
+geom_smooth(method="glm", method.args=list(family=...))
+
+Complete separation - predictor variable is really good at predicting response, not good for stats but good for biology, this slope might be -inf on the log scale
+Ordinal data - can be fit into this framework. when you have an ordinal response variable
+zero-inflation - more zeros than expected in my data, no occupancy in expected habitat, structural or sampling zeros
+visualizing, position = "jitter" moves points off of each other, not the best solution, stat_sum counts overlapping points and draws a bigger circle
+
+common glm() problems
+underdispersion - all p values and ci are larger than they ought to be
+quasipoisson or quasibinomial, squash or stretch ci and p values according to variance and spread of data... can;t do likelihood ratio stuff, have to do Wald Z
+use a generalized linear mixed model instead of a glm()... didn;t catch it
+
+autocorrelation function - acf(residuals(model))
+- looking for patterns, common is autocorrelation at small lags
+
+DHARMa - simulate model residuals, not for quasi poisson, needs a real underlying distribution, negative binomial would be what you switch to
+
+ggplot: try a quadratic model (geom_smooth(method="glm", formula=y~poly(x,2)....))
+
+permutations - can be used to check your complicated, assumptions based model, test your p-value
+
+permutation tests are the only easy way to deal with spatial and temporal structure... Mantel test is a standard way to deal with this

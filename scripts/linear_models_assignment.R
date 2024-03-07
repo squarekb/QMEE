@@ -9,7 +9,7 @@ library(broom)
 ##Hypothesis: eDNA yield, or copy number will be impacted by changes in wetland size and julian day of observation. 
 
 ## modified my original dataset to include DNA copy number instead of just positive or negative occupancy, dataset includes only positive observations
-pos <- (read_csv("edna_data.csv",  col_types=cols())
+pos <- (read_csv("data/edna_data.csv",  col_types=cols())
          %>% mutate(occupancy = as.factor(occ))
          %>% subset(copy_no > 0, select = -c(occ))
 )
@@ -30,7 +30,8 @@ check_model(lmint)
 
 #interaction model summary
 print(summary(lmint))
-
+print(summary(lmboth))
+      
 #coefficient plot using dwplot/dotwhisker
 lmint_df <- tidy(lmint)%>%
   by_2sd(pos)
@@ -39,6 +40,16 @@ dwplot(lmint_df,
        ci = 0.95,
        style = "dotwhisker",
        vline = geom_vline(xintercept = 0, linetype = "dashed"))
+
+lmboth_df <- tidy(lmboth)%>%
+  by_2sd(pos)
+
+dwplot(lmboth_df, 
+       ci = 0.95,
+       style = "dotwhisker",
+       vline = geom_vline(xintercept = 0, linetype = "dashed"))
+
+
 
 ## Discussion
 

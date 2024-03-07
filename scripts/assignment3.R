@@ -5,10 +5,9 @@ library(ggplot2)
 ## JD Looks good. Might have been cooler if you had used your cleaned data from previous assignment.
 
 #importing data and adding occupancy as a factor, creating a longer dataset with gather()
-data <- (read_csv("qmee_data.csv", col_types=cols())
-         %>% mutate(occupancy = as.factor(edna_occ))
-         %>% gather('wetland_size', 'water_temp','air_temp','pH','salinity','rdo_conc', 'turbidity', 'conductivity', 'canopy_cover', 'tds', 'julian_day_eDNA', key = "env", value = "score")
-         %>% subset(select = -c(edna_occ,pct_pos_qpcr))
+data <- (read_csv("data/edna.csv", col_types=cols())
+         %>% mutate(occupancy = as.factor(occ))
+         %>% gather('size', 'water_temp','air_temp','pH','salinity','do', 'turbidity', 'cond', 'canopy_pct', 'tds', 'day', key = "env", value = "score")
 )
 
 #boxplots of environmental variables by occupancy, scales are adjusted by the bounds of each environmental variable using "free"
